@@ -17,9 +17,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-
 
 /**
  *
@@ -32,8 +31,13 @@ public class GoalResource {
     GoalService mGoalService = new GoalService();
     
     @GET
-    public List<Goal> getGoals() throws Exception {
-        return mGoalService.returnGoals();
+    public List<Goal> getGoals(@QueryParam("year") int year,
+                               @QueryParam("start") int start,
+                               @QueryParam("size") int size) throws Exception {
+        if(year > 0){
+            return mGoalService.returnGoalsWithinYear(year, start, size);
+        }
+        return mGoalService.returnGoals(start, size);
     }   
     
     @POST

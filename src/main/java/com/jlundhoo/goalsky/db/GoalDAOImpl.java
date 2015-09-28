@@ -31,67 +31,52 @@ public class GoalDAOImpl implements GoalDAO {
 
     @Override
     public List<Goal> getAllGoals() {
+        connect();
         try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
-            
             statement = connect.prepareStatement("SELECT * FROM GOALS");
             resultSet = statement.executeQuery();
             return DBUtils.convertGoalResultsetToList(resultSet);
-            
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
-            } finally {
-                close();
-            }
+        } catch (SQLException e) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            close();
+        }
         return null;
     }
 
     @Override
     public Goal getGoal(int id) {
-         try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
-            
+        connect();
+        try{
             statement = connect.prepareStatement("SELECT * FROM GOALS WHERE GOAL_ID="+id);
             resultSet = statement.executeQuery();
             return DBUtils.convertResultsetToGoal(resultSet);
-            
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
-            } finally {
-                close();
-            }
+        } catch (SQLException e) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            close();
+        }
         return null;
     }
     
     @Override
     public void postGoal(Goal goal) {
+        connect();
         try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
             statement = connect.prepareStatement("INSERT INTO GOALS(USER_ID,TITLE,CREATION_DATE) VALUES("+goal.getUserID()+",'"+goal.getTitle()+"','2015-05-05')");
             statement.executeUpdate();
-            
             //returns the goal that was just inserted into the DB
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
-            } finally {
-                close();
-            }   
+        } catch (SQLException e) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            close();
+        }   
     }
 
     @Override
     public Goal updateGoal(Goal goal, int id) {
+        connect();
         try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
-            
-            Date now = new Date();
             statement = connect.prepareStatement("UPDATE GOALS "
                     + "SET USER_ID="+goal.getUserID()+","
                     + "TITLE='"+goal.getTitle()+"' "
@@ -99,28 +84,38 @@ public class GoalDAOImpl implements GoalDAO {
             statement.executeUpdate();
             
             //returns the goal that was just inserted into the DB
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+            } catch (SQLException e) {
                 Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
-        }
+            }
         return goal;
     }
 
     @Override
     public void deleteGoal(int id) {
-        try{
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
-            
+        connect();
+        
+        try {
             statement = connect.prepareStatement("DELETE FROM GOALS WHERE GOAL_ID="+id);
             statement.executeUpdate();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
-            } finally {
+        } catch (SQLException ex) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
                 close();
-            }
+        }
+           
+    }
+    
+    private void connect() {
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
+            
+        } catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private void close() {
@@ -137,6 +132,25 @@ public class GoalDAOImpl implements GoalDAO {
       } catch (Exception e) {
 
       }
+    }
+
+    @Override
+    public List<Goal> returnGoalsWithinYear(int year) {
+    
+        connect();
+        try {
+            statement = connect.prepareStatement("SELECT * FROM GOALS WHERE CREATION_DATE BETWEEN "
+                    + "'"+String.valueOf(year)+"-01-01' AND '"+String.valueOf(year)+"-12-31'");
+            resultSet = statement.executeQuery();
+            
+            return DBUtils.convertGoalResultsetToList(resultSet);
+        } catch (SQLException ex) {
+            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            close();
+        }
+        return null;
+        
     }
 
    
