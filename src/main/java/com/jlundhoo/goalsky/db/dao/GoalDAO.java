@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface GoalDAO{
     
-    public List<Goal> getAllGoals(int start, int size);
+    public List<Goal> getAllGoals(int year, int start, int size);
     
     public Goal getGoal(int id);
     

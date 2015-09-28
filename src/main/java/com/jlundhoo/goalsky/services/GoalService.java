@@ -22,8 +22,12 @@ public class GoalService {
         goalDAO = new GoalDAOImpl();
     }
     
-    public List<Goal> returnGoals(int start, int size) throws Exception{
-        return goalDAO.getAllGoals(start, size);
+    public List<Goal> returnGoals(int year, int start, int size) throws Exception{
+        return goalDAO.getAllGoals(year, start, size);
+    }
+    
+    public List<Goal> returnGoalsWithinYear(int year, int start, int size) {
+        return goalDAO.returnGoalsWithinYear(year);
     }
     
     public Goal getGoal(int id){
@@ -42,7 +46,5 @@ public class GoalService {
         goalDAO.deleteGoal(id);
     }
 
-    public List<Goal> returnGoalsWithinYear(int year) {
-        return goalDAO.returnGoalsWithinYear(year);
-    }
+    
 }

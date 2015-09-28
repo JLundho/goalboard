@@ -10,6 +10,7 @@ import com.jlundhoo.goalsky.services.GoalService;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -30,14 +31,27 @@ import javax.ws.rs.core.MediaType;
 public class GoalResource {
     GoalService mGoalService = new GoalService();
     
+    @DefaultValue("") @QueryParam("year")
+    private int year;
+    
+    @DefaultValue("0") @QueryParam("offset")
+    private int offset;
+    
+    @DefaultValue("10") @QueryParam("size")
+    private int size;
+    
+    @DefaultValue("desc") @QueryParam("orderby")
+    private String orderby;
+    
+    @DefaultValue("CREATION_DATE") @QueryParam("sortby")
+    private String sortby;
+    
     @GET
-    public List<Goal> getGoals(@QueryParam("year") int year,
-                               @QueryParam("start") int start,
-                               @QueryParam("size") int size) throws Exception {
-        if(year > 0){
-            return mGoalService.returnGoalsWithinYear(year, start, size);
+    public List<Goal> getGoals() throws Exception {
+        if(year > 0 || size > 0){
+            return mGoalService.returnGoalsWithinYear(year, offset, size);
         }
-        return mGoalService.returnGoals(start, size);
+        return mGoalService.returnGoals(year, offset, size);
     }   
     
     @POST

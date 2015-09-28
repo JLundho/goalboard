@@ -10,7 +10,7 @@
     <name>goalsky</name>
 
     <build>
-        <finalName>messenger</finalName>
+        <finalName>goalsky</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
