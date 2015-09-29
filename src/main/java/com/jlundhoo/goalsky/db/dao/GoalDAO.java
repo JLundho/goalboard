@@ -13,7 +13,7 @@ import java.util.List;
  * @author jonas
  */
 
-public interface GoalDAO extends DaoBase{
+public interface GoalDAO {
     
     public List<Goal> getAllGoals(int year, int start, int size);
     
