@@ -5,8 +5,8 @@
  */
 package com.jlundhoo.goalsky.db;
 
-import com.jlundhoo.goalsky.db.dao.GoalDAOOld;
-import com.jlundhoo.goalsky.models.Goal;
+import com.jlundhoo.goalsky.db.dao.Dao;
+import com.jlundhoo.goalsky.models.GoalEO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.jlundhoo.goalsky.utils.DBUtils;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,39 +22,25 @@ import java.util.List;
  * @author jonas
  */
 
-public class GoalDAO implements GoalDAOOld {
-    
+public class GoalDAO extends Dao {
+
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     Connection connect = null;
+    
+    Logger logger = Logger.getLogger(GoalDAO.class.getName());
 
-    @Override
-    public List<Goal> getAllGoals(int year, int start, int size) {
-        connect();
-        String from = null;
-        if(year > 0){
-            from = "WHERE CREATION_DATE BETWEEN '"+String.valueOf(year)+"-01-01' AND '"+String.valueOf(year)+"-12-31'";
-        }
-        
-        try{
-            statement = connect.prepareStatement("SELECT * FROM GOALS "+from);
-            resultSet = statement.executeQuery();
-            return DBUtils.convertGoalResultsetToList(resultSet);
-        } catch (SQLException e) {
-            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            close();
-        }
-        return null;
+    public List<GoalEO> getAllGoals() {
+        List<GoalEO> goalList = new ArrayList(readAll());
+        logger.log(Level.INFO, "goalList successfully read");
+        return goalList;
     }
 
-    @Override
-    public Goal getGoal(int id) {
+    public GoalEO getGoal(int id) {
         connect();
         try{
             statement = connect.prepareStatement("SELECT * FROM GOALS WHERE GOAL_ID="+id);
             resultSet = statement.executeQuery();
-            return DBUtils.convertResultsetToGoal(resultSet);
         } catch (SQLException e) {
             Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -63,8 +49,7 @@ public class GoalDAO implements GoalDAOOld {
         return null;
     }
     
-    @Override
-    public void postGoal(Goal goal) {
+    public void postGoal(GoalEO goal) {
         connect();
         try{
             statement = connect.prepareStatement("INSERT INTO GOALS(USER_ID,TITLE,CREATION_DATE) VALUES("+goal.getUserID()+",'"+goal.getTitle()+"','2015-05-05')");
@@ -77,8 +62,7 @@ public class GoalDAO implements GoalDAOOld {
         }   
     }
 
-    @Override
-    public Goal updateGoal(Goal goal, int id) {
+    public GoalEO updateGoal(GoalEO goal, int id) {
         connect();
         try{
             statement = connect.prepareStatement("UPDATE GOALS "
@@ -96,7 +80,6 @@ public class GoalDAO implements GoalDAOOld {
         return goal;
     }
 
-    @Override
     public void deleteGoal(int id) {
         connect();
         

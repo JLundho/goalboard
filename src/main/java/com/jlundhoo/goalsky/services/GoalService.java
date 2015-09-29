@@ -5,9 +5,9 @@
  */
 package com.jlundhoo.goalsky.services;
 
-import com.jlundhoo.goalsky.db.dao.GoalDAOOld;
+
 import com.jlundhoo.goalsky.db.GoalDAO;
-import com.jlundhoo.goalsky.models.Goal;
+import com.jlundhoo.goalsky.models.GoalEO;
 import java.util.List;
 
 /**
@@ -16,25 +16,25 @@ import java.util.List;
  */
 public class GoalService {
     
-    GoalDAOOld goalDAO;
+    GoalDAO goalDAO;
     
     public GoalService(){
         goalDAO = new GoalDAO();
     }
     
-    public List<Goal> returnGoals(int year, int start, int size) throws Exception{
-        return goalDAO.getAllGoals(year, start, size);
+    public List<GoalEO> getAllGoals() throws Exception{
+        return goalDAO.getAllGoals();
     }
     
-    public Goal getGoal(int id){
+    public GoalEO getGoal(int id){
         return goalDAO.getGoal(id);
     }
 
-    public void postGoal(Goal goal) {
+    public void postGoal(GoalEO goal) {
         goalDAO.postGoal(goal);
     }
     
-    public void updateGoal(Goal goal, int id) {
+    public void updateGoal(GoalEO goal, int id) {
         goalDAO.updateGoal(goal, id);
     }
     

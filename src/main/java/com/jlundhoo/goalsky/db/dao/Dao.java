@@ -6,9 +6,10 @@
 package com.jlundhoo.goalsky.db.dao;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,31 +17,32 @@ import javax.persistence.PersistenceContext;
  * @param <E> 
  * @param <PK> 
  */
+
 public class Dao<E, PK extends Serializable> 
     implements DaoBase<E, PK>  {
     
-    protected Class<E> entityClass;
+    protected Class entityClass;
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "GoalPU")
     protected EntityManager entityManager;
     
-    public Dao() {
-    	ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-	this.entityClass = (Class) genericSuperclass.getActualTypeArguments()[1];
-    }
-
+    
     @Override
     public E create(E entity) {
         entityManager.persist(entity);
         return entity;
     }
-
+    
     @Override
     public E read(PK id) {
-        return this.entityManager.find(entityClass, id);
+        return (E) this.entityManager.find(entityClass, id);
+    }
+    
+    public Collection<E> readAll() {
+        Query query = entityManager.createQuery("SELECT * FROM Goal");
+        return (Collection<E>) query.getResultList();
     }
 
-    @Override
     public E update(E entity) {
         return this.entityManager.merge(entity);
     }

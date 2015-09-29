@@ -1,0 +1,27 @@
+<?xml version="2.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="GoalPU" transaction-type="RESOURCE_LOCAL">
+    <jta-data-source>GoalDB</jta-data-source>
+    
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+        
+      <!-- Database connection properties -->
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/GoalDB"/>
+      <property name="javax.persistence.jdbc.user" value=""/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      
+      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="update" />
+      <property name="hibernate.show_sql" value="true" />
+      
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      
+      <!-- Database schema properties -->
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+    
+  </persistence-unit>
+</persistence>

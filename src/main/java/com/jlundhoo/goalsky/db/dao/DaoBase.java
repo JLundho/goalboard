@@ -6,6 +6,7 @@
 package com.jlundhoo.goalsky.db.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.io.Serializable;
 public interface DaoBase<E, PK extends Serializable> {
     E create (E entity);
     E read (PK id);
+    Collection<E> readAll();
     E update(E entity);
     void delete(E entity);
 }

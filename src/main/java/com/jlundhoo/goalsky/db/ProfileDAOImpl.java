@@ -7,7 +7,6 @@ package com.jlundhoo.goalsky.db;
 
 import com.jlundhoo.goalsky.db.dao.ProfileDAO;
 import com.jlundhoo.goalsky.models.Profile;
-import com.jlundhoo.goalsky.utils.DBUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,7 +36,6 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             statement = connect.prepareStatement("SELECT * FROM PROFILES");
             resultSet = statement.executeQuery();
-            return DBUtils.convertProfileResultsetToList(resultSet);
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                 Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
@@ -77,7 +75,6 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             statement = connect.prepareStatement("SELECT * FROM PROFILES WHERE PROFILE_NAME='"+name+"'");
             resultSet = statement.executeQuery();
-            return DBUtils.convertResultsetToProfile(resultSet);
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
                 Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
