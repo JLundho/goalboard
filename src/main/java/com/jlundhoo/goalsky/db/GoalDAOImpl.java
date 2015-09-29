@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.jlundhoo.goalsky.utils.DBUtils;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,10 +29,15 @@ public class GoalDAOImpl implements GoalDAO {
     Connection connect = null;
 
     @Override
-    public List<Goal> getAllGoals() {
+    public List<Goal> getAllGoals(int year, int start, int size) {
         connect();
+        String from = null;
+        if(year > 0){
+            from = "WHERE CREATION_DATE BETWEEN '"+String.valueOf(year)+"-01-01' AND '"+String.valueOf(year)+"-12-31'";
+        }
+        
         try{
-            statement = connect.prepareStatement("SELECT * FROM GOALS");
+            statement = connect.prepareStatement("SELECT * FROM GOALS "+from);
             resultSet = statement.executeQuery();
             return DBUtils.convertGoalResultsetToList(resultSet);
         } catch (SQLException e) {
@@ -110,7 +114,7 @@ public class GoalDAOImpl implements GoalDAO {
     private void connect() {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/goalDB");
+            connect = DriverManager.getConnection("jdbc:derby://localhost:1527/GoalDB");
             
         } catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,32 +137,5 @@ public class GoalDAOImpl implements GoalDAO {
 
       }
     }
-
-    @Override
-    public List<Goal> returnGoalsWithinYear(int year) {
-    
-        connect();
-        try {
-            statement = connect.prepareStatement("SELECT * FROM GOALS WHERE CREATION_DATE BETWEEN "
-                    + "'"+String.valueOf(year)+"-01-01' AND '"+String.valueOf(year)+"-12-31'");
-            resultSet = statement.executeQuery();
-            
-            return DBUtils.convertGoalResultsetToList(resultSet);
-        } catch (SQLException ex) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            close();
-        }
-        return null;
-        
-    }
-
    
-
-    
-
-    
-
-    
-    
 }

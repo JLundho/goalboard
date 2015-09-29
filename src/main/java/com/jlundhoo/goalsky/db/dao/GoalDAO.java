@@ -13,9 +13,9 @@ import java.util.List;
  * @author jonas
  */
 
-public interface GoalDAO{
+public interface GoalDAO extends DaoBase{
     
-    public List<Goal> getAllGoals(int start, int size);
+    public List<Goal> getAllGoals(int year, int start, int size);
     
     public Goal getGoal(int id);
     
@@ -24,6 +24,4 @@ public interface GoalDAO{
     public Goal updateGoal(Goal goal, int id);
     
     public void deleteGoal(int id);  
-
-    public List<Goal> returnGoalsWithinYear(int year);
 }

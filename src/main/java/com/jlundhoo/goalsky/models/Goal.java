@@ -27,11 +27,6 @@ public class Goal {
         this.creationDate = new Date();
     }
     
-
-    public int getUserID() {
-        return userID;
-    }
-    
     public int getGoalID() {
         return goalID;
     }
@@ -42,6 +37,10 @@ public class Goal {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+    
+    public int getUserID() {
+        return userID;
     }
     
     public String getTitle() {
