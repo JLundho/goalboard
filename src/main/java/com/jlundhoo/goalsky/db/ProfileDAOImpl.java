@@ -40,7 +40,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             return DBUtils.convertProfileResultsetToList(resultSet);
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }
@@ -62,7 +62,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             //returns the goal that was just inserted into the DB
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }   
@@ -80,7 +80,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             return DBUtils.convertResultsetToProfile(resultSet);
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }
@@ -103,7 +103,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             //returns the goal that was just inserted into the DB
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
         }
@@ -120,7 +120,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             statement = connect.prepareStatement("DELETE FROM PROFILES WHERE PROFILE_NAME='"+name+"'");
             statement.executeUpdate();
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }

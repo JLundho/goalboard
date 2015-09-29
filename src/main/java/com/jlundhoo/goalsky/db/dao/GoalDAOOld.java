@@ -13,7 +13,7 @@ import java.util.List;
  * @author jonas
  */
 
-public interface GoalDAO {
+public interface GoalDAOOld {
     
     public List<Goal> getAllGoals(int year, int start, int size);
     

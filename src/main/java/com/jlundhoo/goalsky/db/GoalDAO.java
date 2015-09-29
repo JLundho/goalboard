@@ -5,7 +5,7 @@
  */
 package com.jlundhoo.goalsky.db;
 
-import com.jlundhoo.goalsky.db.dao.GoalDAO;
+import com.jlundhoo.goalsky.db.dao.GoalDAOOld;
 import com.jlundhoo.goalsky.models.Goal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author jonas
  */
 
-public class GoalDAOImpl implements GoalDAO {
+public class GoalDAO implements GoalDAOOld {
     
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -41,7 +41,7 @@ public class GoalDAOImpl implements GoalDAO {
             resultSet = statement.executeQuery();
             return DBUtils.convertGoalResultsetToList(resultSet);
         } catch (SQLException e) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             close();
         }
@@ -56,7 +56,7 @@ public class GoalDAOImpl implements GoalDAO {
             resultSet = statement.executeQuery();
             return DBUtils.convertResultsetToGoal(resultSet);
         } catch (SQLException e) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             close();
         }
@@ -71,7 +71,7 @@ public class GoalDAOImpl implements GoalDAO {
             statement.executeUpdate();
             //returns the goal that was just inserted into the DB
         } catch (SQLException e) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             close();
         }   
@@ -89,7 +89,7 @@ public class GoalDAOImpl implements GoalDAO {
             
             //returns the goal that was just inserted into the DB
             } catch (SQLException e) {
-                Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }
@@ -104,7 +104,7 @@ public class GoalDAOImpl implements GoalDAO {
             statement = connect.prepareStatement("DELETE FROM GOALS WHERE GOAL_ID="+id);
             statement.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
                 close();
         }
@@ -117,7 +117,7 @@ public class GoalDAOImpl implements GoalDAO {
             connect = DriverManager.getConnection("jdbc:derby://localhost:1527/GoalDB");
             
         } catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(GoalDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
