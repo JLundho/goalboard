@@ -8,6 +8,7 @@ package com.jlundhoo.goalsky.services;
 
 import com.jlundhoo.goalsky.db.GoalDAO;
 import com.jlundhoo.goalsky.models.GoalEO;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class GoalService {
         goalDAO = new GoalDAO();
     }
     
-    public List<GoalEO> getAllGoals() throws Exception{
+    public Collection<GoalEO> getAllGoals() throws Exception{
         return goalDAO.getAllGoals();
     }
     

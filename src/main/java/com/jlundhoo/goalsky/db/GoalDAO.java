@@ -15,7 +15,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -30,9 +32,12 @@ public class GoalDAO extends Dao {
     
     Logger logger = Logger.getLogger(GoalDAO.class.getName());
 
-    public List<GoalEO> getAllGoals() {
-        List<GoalEO> goalList = new ArrayList(readAll());
-        logger.log(Level.INFO, "goalList successfully read");
+    public Collection<GoalEO> getAllGoals() {
+        Collection<GoalEO> goalList = new ArrayList<>();
+        entityManager = factory.createEntityManager();
+        Query query = entityManager.createQuery("SELECT goalID,userID,title,creationDate FROM GoalEO");
+        goalList = query.getResultList();
+        
         return goalList;
     }
 

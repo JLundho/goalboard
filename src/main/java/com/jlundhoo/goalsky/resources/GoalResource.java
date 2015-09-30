@@ -7,6 +7,7 @@ package com.jlundhoo.goalsky.resources;
 
 import com.jlundhoo.goalsky.models.GoalEO;
 import com.jlundhoo.goalsky.services.GoalService;
+import java.util.Collection;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,7 +32,7 @@ public class GoalResource {
     
     
     @GET
-    public List<GoalEO> getGoals() throws Exception {
+    public Collection<GoalEO> getGoals() throws Exception {
         return mGoalService.getAllGoals();
     }   
     

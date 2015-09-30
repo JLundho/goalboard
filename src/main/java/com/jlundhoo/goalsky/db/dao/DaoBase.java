@@ -17,7 +17,6 @@ import java.util.Collection;
 public interface DaoBase<E, PK extends Serializable> {
     E create (E entity);
     E read (PK id);
-    Collection<E> readAll();
     E update(E entity);
     void delete(E entity);
 }

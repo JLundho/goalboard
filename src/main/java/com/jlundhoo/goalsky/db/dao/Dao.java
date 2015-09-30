@@ -8,7 +8,8 @@ package com.jlundhoo.goalsky.db.dao;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -22,11 +23,12 @@ public class Dao<E, PK extends Serializable>
     implements DaoBase<E, PK>  {
     
     protected Class entityClass;
-
-    @PersistenceContext(unitName = "GoalPU")
-    protected EntityManager entityManager;
     
+    public EntityManager entityManager;
     
+    private static final String PERSISTENCE_UNIT_NAME = "com.jlundhoo_goalsky_war_1.0-SNAPSHOTPU";
+    public EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+   
     @Override
     public E create(E entity) {
         entityManager.persist(entity);
@@ -37,11 +39,7 @@ public class Dao<E, PK extends Serializable>
     public E read(PK id) {
         return (E) this.entityManager.find(entityClass, id);
     }
-    
-    public Collection<E> readAll() {
-        Query query = entityManager.createQuery("SELECT * FROM Goal");
-        return (Collection<E>) query.getResultList();
-    }
+
 
     public E update(E entity) {
         return this.entityManager.merge(entity);
@@ -52,6 +50,9 @@ public class Dao<E, PK extends Serializable>
        entity = this.entityManager.merge(entity);
        this.entityManager.remove(entity);
     }
-        
+     
+    public EntityManager getEntityManager() {
+          return factory.createEntityManager();
+    }
 }
 
