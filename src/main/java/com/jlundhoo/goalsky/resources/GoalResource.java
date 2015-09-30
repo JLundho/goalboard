@@ -8,7 +8,6 @@ package com.jlundhoo.goalsky.resources;
 import com.jlundhoo.goalsky.models.GoalEO;
 import com.jlundhoo.goalsky.services.GoalService;
 import java.util.Collection;
-import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 
@@ -50,17 +49,15 @@ public class GoalResource {
     
     @PUT
     @Path("/{goalId}")
-    public GoalEO updateGoal(@PathParam("goalId") int id, GoalEO goal) throws Exception {
-        goal.setGoalID(id);
-        mGoalService.updateGoal(goal, id);
+    public GoalEO updateGoal(GoalEO goal) throws Exception {
+        mGoalService.updateGoal(goal);
         return goal;
     }
     
     @DELETE
     @Path("/{goalId}")
-    public GoalEO deleteGoal(@PathParam("goalId") int id) throws Exception {
-        //Return different response based on result
-        mGoalService.deleteGoal(id);
+    public GoalEO deleteGoal(GoalEO goal) throws Exception {
+        mGoalService.deleteGoal(goal);
         return null;
     }
 }

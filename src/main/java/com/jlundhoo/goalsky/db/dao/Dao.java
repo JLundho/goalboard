@@ -6,11 +6,11 @@
 package com.jlundhoo.goalsky.db.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.PersistenceUnit;
 
 /**
  *
@@ -19,36 +19,51 @@ import javax.persistence.Query;
  * @param <PK> 
  */
 
+@Stateless  
 public class Dao<E, PK extends Serializable> 
     implements DaoBase<E, PK>  {
     
     protected Class entityClass;
     
-    public EntityManager entityManager;
+    @PersistenceUnit
+    protected EntityManager entityManager;
     
-    private static final String PERSISTENCE_UNIT_NAME = "com.jlundhoo_goalsky_war_1.0-SNAPSHOTPU";
-    public EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    private static final String PERSISTENCE_UNIT_NAME = "GoalPU";
+    protected EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
    
     @Override
     public E create(E entity) {
+        entityManager = getEntityManager();
+        entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.getTransaction().commit();
         return entity;
     }
     
     @Override
     public E read(PK id) {
+        entityManager = getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager = getEntityManager();
+        entityManager.getTransaction().commit();
         return (E) this.entityManager.find(entityClass, id);
     }
 
-
+    @Override
     public E update(E entity) {
+        entityManager = getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.getTransaction().commit();
         return this.entityManager.merge(entity);
     }
 
     @Override
     public void delete(E entity) {
+       entityManager = getEntityManager();
+       entityManager.getTransaction().begin();
        entity = this.entityManager.merge(entity);
        this.entityManager.remove(entity);
+       entityManager.getTransaction().commit();
     }
      
     public EntityManager getEntityManager() {

@@ -6,7 +6,6 @@
 package com.jlundhoo.goalsky.db.dao;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
  *

@@ -5,6 +5,7 @@
  */
 package com.jlundhoo.goalsky.db;
 
+import com.jlundhoo.goalsky.db.dao.GoalDAO;
 import com.jlundhoo.goalsky.db.dao.ProfileDAO;
 import com.jlundhoo.goalsky.models.Profile;
 import java.sql.Connection;
