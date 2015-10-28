@@ -5,10 +5,10 @@
  */
 package com.jlundhoo.goalsky.services;
 
+
 import com.jlundhoo.goalsky.db.dao.GoalDAO;
-import com.jlundhoo.goalsky.db.GoalDAOImpl;
-import com.jlundhoo.goalsky.models.Goal;
-import java.util.List;
+import com.jlundhoo.goalsky.models.GoalEO;
+import java.util.Collection;
 
 /**
  *
@@ -19,31 +19,36 @@ public class GoalService {
     GoalDAO goalDAO;
     
     public GoalService(){
-        goalDAO = new GoalDAOImpl();
+        goalDAO = new GoalDAO();
     }
     
+<<<<<<< HEAD
     public List<Goal> returnGoals(int year, int start, int size) throws Exception{
         return goalDAO.getAllGoals(year, start, size);
     }
     
     public List<Goal> returnGoalsWithinYear(int year, int start, int size) {
         return goalDAO.returnGoalsWithinYear(year);
+=======
+    public Collection<GoalEO> getAllGoals() throws Exception{
+        return goalDAO.getAllGoals();
+>>>>>>> ba5c57578cf227d9b2f1f85816044e41b7c04275
     }
     
-    public Goal getGoal(int id){
-        return goalDAO.getGoal(id);
-    }
-
-    public void postGoal(Goal goal) {
+    public void postGoal(GoalEO goal) {
         goalDAO.postGoal(goal);
     }
     
-    public void updateGoal(Goal goal, int id) {
-        goalDAO.updateGoal(goal, id);
+    public GoalEO getGoal(int id){
+        return goalDAO.getGoal(id);
+    }
+
+    public void updateGoal(GoalEO goal) {
+        goalDAO.updateGoal(goal);
     }
     
-    public void deleteGoal(int id) {
-        goalDAO.deleteGoal(id);
+    public void deleteGoal(GoalEO goal) {
+        goalDAO.deleteGoal(goal);
     }
 
     

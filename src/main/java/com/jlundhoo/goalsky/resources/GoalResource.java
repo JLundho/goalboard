@@ -5,9 +5,9 @@
  */
 package com.jlundhoo.goalsky.resources;
 
-import com.jlundhoo.goalsky.models.Goal;
+import com.jlundhoo.goalsky.models.GoalEO;
 import com.jlundhoo.goalsky.services.GoalService;
-import java.util.List;
+import java.util.Collection;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -18,7 +18,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -31,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 public class GoalResource {
     GoalService mGoalService = new GoalService();
     
+<<<<<<< HEAD
     @DefaultValue("") @QueryParam("year")
     private int year;
     
@@ -52,33 +52,37 @@ public class GoalResource {
             return mGoalService.returnGoalsWithinYear(year, offset, size);
         }
         return mGoalService.returnGoals(year, offset, size);
+=======
+    
+    @GET
+    public Collection<GoalEO> getGoals() throws Exception {
+        return mGoalService.getAllGoals();
+>>>>>>> ba5c57578cf227d9b2f1f85816044e41b7c04275
     }   
     
     @POST
-    public Goal postGoal(Goal goal){
+    public GoalEO postGoal(GoalEO goal){
         mGoalService.postGoal(goal);
         return goal;
     }
     
     @GET
     @Path("/{goalId}")
-    public Goal getGoal(@PathParam("goalId") int id) throws Exception {
+    public GoalEO getGoal(@PathParam("goalId") int id) throws Exception {
         return mGoalService.getGoal(id);
     }
     
     @PUT
     @Path("/{goalId}")
-    public Goal updateGoal(@PathParam("goalId") int id, Goal goal) throws Exception {
-        goal.setGoalID(id);
-        mGoalService.updateGoal(goal, id);
+    public GoalEO updateGoal(GoalEO goal) throws Exception {
+        mGoalService.updateGoal(goal);
         return goal;
     }
     
     @DELETE
     @Path("/{goalId}")
-    public Goal deleteGoal(@PathParam("goalId") int id) throws Exception {
-        //Return different response based on result
-        mGoalService.deleteGoal(id);
+    public GoalEO deleteGoal(GoalEO goal) throws Exception {
+        mGoalService.deleteGoal(goal);
         return null;
     }
 }

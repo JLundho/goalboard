@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.jlundhoo.goalsky.resources;
-import com.jlundhoo.goalsky.models.Goal;
 import com.jlundhoo.goalsky.models.Profile;
 import com.jlundhoo.goalsky.services.ProfileService;
 import java.util.List;
