@@ -21,19 +21,6 @@ public class GoalEO implements Serializable {
     private String title;
     private Date creationDate;
     
-<<<<<<< HEAD:src/main/java/com/jlundhoo/goalsky/models/Goal.java
-    //Empty argument constructor for converting to XML/JSON
-    public Goal(){
-    }
-
-    public Goal(int userID, String title){
-        this.userID = userID;
-        this.title = title;
-        this.creationDate = new Date();
-    }
-    
-=======
->>>>>>> ba5c57578cf227d9b2f1f85816044e41b7c04275:src/main/java/com/jlundhoo/goalsky/models/GoalEO.java
     public int getGoalID() {
         return goalID;
     }

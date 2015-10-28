@@ -22,17 +22,8 @@ public class GoalService {
         goalDAO = new GoalDAO();
     }
     
-<<<<<<< HEAD
-    public List<Goal> returnGoals(int year, int start, int size) throws Exception{
-        return goalDAO.getAllGoals(year, start, size);
-    }
-    
-    public List<Goal> returnGoalsWithinYear(int year, int start, int size) {
-        return goalDAO.returnGoalsWithinYear(year);
-=======
     public Collection<GoalEO> getAllGoals() throws Exception{
         return goalDAO.getAllGoals();
->>>>>>> ba5c57578cf227d9b2f1f85816044e41b7c04275
     }
     
     public void postGoal(GoalEO goal) {

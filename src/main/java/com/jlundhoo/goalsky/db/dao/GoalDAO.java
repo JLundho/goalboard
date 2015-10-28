@@ -16,13 +16,8 @@ import javax.persistence.Query;
  * @author jonas
  */
 
-<<<<<<< HEAD
-public interface GoalDAO{
-    
-    public List<Goal> getAllGoals(int year, int start, int size);
-    
-    public Goal getGoal(int id);
-=======
+
+
 public class GoalDAO extends Dao {
     private static final Logger logger = Logger.getLogger(GoalDAO.class.getName());
 
@@ -34,7 +29,6 @@ public class GoalDAO extends Dao {
         entityManager.close();
         return goalList;
     }
->>>>>>> ba5c57578cf227d9b2f1f85816044e41b7c04275
     
     public void postGoal(GoalEO goal) {
         create(goal);
