@@ -23,14 +23,15 @@ import javax.persistence.PersistenceUnit;
 public class Dao<E, PK extends Serializable> 
     implements DaoBase<E, PK>  {
     
+    private static final String PERSISTENCE_UNIT_NAME = "GoalPU";
+    
     protected Class entityClass;
     
     @PersistenceUnit
     protected EntityManager entityManager;
     
-    private static final String PERSISTENCE_UNIT_NAME = "GoalPU";
     protected EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-   
+    
     @Override
     public E create(E entity) {
         entityManager = getEntityManager();

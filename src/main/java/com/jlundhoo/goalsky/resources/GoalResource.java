@@ -7,7 +7,10 @@ package com.jlundhoo.goalsky.resources;
 
 import com.jlundhoo.goalsky.models.GoalEO;
 import com.jlundhoo.goalsky.services.GoalService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 
@@ -37,6 +40,7 @@ public class GoalResource {
     
     @POST
     public GoalEO postGoal(GoalEO goal){
+        goal.setCreationDate();
         mGoalService.postGoal(goal);
         return goal;
     }

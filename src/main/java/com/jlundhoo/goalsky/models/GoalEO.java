@@ -1,10 +1,19 @@
 package com.jlundhoo.goalsky.models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.SourceType;
 
 /**
  *
@@ -19,6 +28,8 @@ public class GoalEO implements Serializable {
     private int goalID;
     private int userID;
     private String title;
+    
+    @Temporal(TemporalType.DATE)
     private Date creationDate;
     
     public int getGoalID() {
@@ -28,13 +39,13 @@ public class GoalEO implements Serializable {
     public void setGoalID(int goalID) {
         this.goalID = goalID;
     }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
     
     public int getUserID() {
         return userID;
+    }
+    
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
     
     public String getTitle() {
@@ -49,8 +60,9 @@ public class GoalEO implements Serializable {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDate() {
+        Date date = new Date();
+        this.creationDate = date;
     }
     
     public String toString(){

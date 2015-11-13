@@ -16,12 +16,9 @@ import java.util.Collection;
  */
 public class GoalService {
     
-    GoalDAO goalDAO;
+    GoalDAO goalDAO = new GoalDAO();
     
-    public GoalService(){
-        goalDAO = new GoalDAO();
-    }
-    
+
     public Collection<GoalEO> getAllGoals() throws Exception{
         return goalDAO.getAllGoals();
     }
