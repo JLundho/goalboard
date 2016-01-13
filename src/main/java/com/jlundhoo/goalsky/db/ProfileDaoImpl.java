@@ -5,15 +5,14 @@
  */
 package com.jlundhoo.goalsky.db;
 
-import com.jlundhoo.goalsky.db.dao.GoalDAO;
-import com.jlundhoo.goalsky.db.dao.ProfileDAO;
+import com.jlundhoo.goalsky.db.dao.GoalDao;
+import com.jlundhoo.goalsky.db.dao.ProfileDao;
 import com.jlundhoo.goalsky.models.Profile;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author jonas
  */
-public class ProfileDAOImpl implements ProfileDAO{
+public class ProfileDaoImpl implements ProfileDao {
     
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -39,7 +38,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             resultSet = statement.executeQuery();
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDao.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }
@@ -61,7 +60,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             //returns the goal that was just inserted into the DB
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDao.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }   
@@ -78,7 +77,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             resultSet = statement.executeQuery();
             
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDao.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }
@@ -101,7 +100,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             
             //returns the goal that was just inserted into the DB
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDao.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
         }
@@ -118,7 +117,7 @@ public class ProfileDAOImpl implements ProfileDAO{
             statement = connect.prepareStatement("DELETE FROM PROFILES WHERE PROFILE_NAME='"+name+"'");
             statement.executeUpdate();
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
-                Logger.getLogger(GoalDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(GoalDao.class.getName()).log(Level.SEVERE, null, e);
             } finally {
                 close();
             }

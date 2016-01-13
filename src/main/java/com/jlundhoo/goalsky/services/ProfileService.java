@@ -6,8 +6,8 @@
 package com.jlundhoo.goalsky.services;
 
 
-import com.jlundhoo.goalsky.db.ProfileDAOImpl;
-import com.jlundhoo.goalsky.db.dao.ProfileDAO;
+import com.jlundhoo.goalsky.db.ProfileDaoImpl;
+import com.jlundhoo.goalsky.db.dao.ProfileDao;
 import com.jlundhoo.goalsky.models.Profile;
 import java.util.List;
 
@@ -17,29 +17,29 @@ import java.util.List;
  */
 public class ProfileService {
 
-    ProfileDAO profileDAO;
+    ProfileDao profileDao;
     
     public ProfileService(){
-        profileDAO = new ProfileDAOImpl();
+        profileDao = new ProfileDaoImpl();
     }
     
     public List<Profile> returnProfiles() throws Exception{
-        return profileDAO.getAllProfiles();
+        return profileDao.getAllProfiles();
     }
     
     public Profile getProfile(String name){
-        return profileDAO.getProfile(name);
+        return profileDao.getProfile(name);
     }
 
     public void postProfile(Profile profile) {
-        profileDAO.postProfile(profile);
+        profileDao.postProfile(profile);
     }
     
     public void updateProfile(Profile profile, String name) {
-        profileDAO.updateProfile(profile, name);
+        profileDao.updateProfile(profile, name);
     }
     
     public void deleteProfile(String name) {
-        profileDAO.deleteProfile(name);
+        profileDao.deleteProfile(name);
     }
 }

@@ -22,7 +22,7 @@ import org.hibernate.annotations.SourceType;
 
 @XmlRootElement
 @Entity
-public class GoalEO implements Serializable {
+public class Goal implements Serializable {
     
     @Id
     private int goalID;

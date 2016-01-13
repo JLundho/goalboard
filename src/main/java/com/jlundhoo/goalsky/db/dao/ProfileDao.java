@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author jonas
  */
-public interface ProfileDAO{
+public interface ProfileDao {
     
     public List<Profile> getAllProfiles();
     
